@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  tls.crt: #tls.crt here
+  tls.key: #tls.key here
+kind: Secret
+metadata:
+  name: busybox-ingress-tls
+  namespace: busybox
+type: kubernetes.io/tls
+

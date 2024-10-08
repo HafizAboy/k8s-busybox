@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: busybox-ingress
+  namespace: busybox
+  annotations:
+    kubernetes.io/ingress.class: public
+    meta.helm.sh/release-name: busybox
+    meta.helm.sh/release-namespace: busybox
+spec:
+  ingressClassName: public
+  tls:
+    - hosts:
+        - busybox.hafizaboy.com
+      secretName: busybox-ingress-tls
+  rules:
+    - host: busybox.hafizaboy.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: busybox-service
+                port:
+                  number: 443

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: busybox-service
+  namespace: busybox
+  labels:
+    app: busybox
+spec:
+  type: NodePort  #can use NodePort, LoadBalancer or ClusterIp
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 31013
+  selector:
+    app: busybox

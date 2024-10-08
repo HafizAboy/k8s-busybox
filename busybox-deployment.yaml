@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busybox
+  namespace: busybox
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: busybox
+  template:
+    metadata:
+      labels:
+        app: busybox
+    spec:
+      containers:
+        - name: busybox
+          image: harbor.smarttradzt.com/dockerhub/busybox:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: busybox-configmap
+          #volumeMounts:
+          #  - mountPath: #some path inside eg:/var/lib
+          #    name: #somename
+      volumes:
+        - name: busybox
+          persistentVolumeClaim:
+            claimName: busybox-volume-claim
